@@ -1,15 +1,17 @@
-﻿namespace FormAzienda
+﻿using System.Windows.Forms;
+
+namespace FormAzienda
 {
     partial class Form8
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Label lblDipendenti;
-        private System.Windows.Forms.DataGridView dgvDipendenti;
-        private System.Windows.Forms.Label lblMagazzino;
-        private System.Windows.Forms.DataGridView dgvMagazzino;
-        private System.Windows.Forms.Label lblBustePaga;
-        private System.Windows.Forms.DataGridView dgvBustePaga;
-        private System.Windows.Forms.Button btnLogout;
+        private DataGridView dataGridViewDipendenti;
+        private DataGridView dataGridViewProdotti;
+        private DataGridView dataGridViewBustePaga;
+        private Button btnLogout;
+        private Label labelDipendenti;
+        private Label labelProdotti;
+        private Label labelBustePaga;
 
         protected override void Dispose(bool disposing)
         {
@@ -22,105 +24,122 @@
 
         private void InitializeComponent()
         {
-            this.lblDipendenti = new System.Windows.Forms.Label();
-            this.dgvDipendenti = new System.Windows.Forms.DataGridView();
-            this.lblMagazzino = new System.Windows.Forms.Label();
-            this.dgvMagazzino = new System.Windows.Forms.DataGridView();
-            this.lblBustePaga = new System.Windows.Forms.Label();
-            this.dgvBustePaga = new System.Windows.Forms.DataGridView();
+            this.dataGridViewDipendenti = new System.Windows.Forms.DataGridView();
+            this.dataGridViewProdotti = new System.Windows.Forms.DataGridView();
+            this.dataGridViewBustePaga = new System.Windows.Forms.DataGridView();
             this.btnLogout = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDipendenti)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMagazzino)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBustePaga)).BeginInit();
+            this.labelDipendenti = new System.Windows.Forms.Label();
+            this.labelProdotti = new System.Windows.Forms.Label();
+            this.labelBustePaga = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDipendenti)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdotti)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBustePaga)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblDipendenti
+            // dataGridViewDipendenti
             // 
-            this.lblDipendenti.AutoSize = true;
-            this.lblDipendenti.Location = new System.Drawing.Point(20, 20);
-            this.lblDipendenti.Name = "lblDipendenti";
-            this.lblDipendenti.Size = new System.Drawing.Size(120, 16);
-            this.lblDipendenti.TabIndex = 0;
-            this.lblDipendenti.Text = "Elenco Dipendenti:";
+            this.dataGridViewDipendenti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDipendenti.Location = new System.Drawing.Point(188, 74);
+            this.dataGridViewDipendenti.Name = "dataGridViewDipendenti";
+            this.dataGridViewDipendenti.RowHeadersWidth = 51;
+            this.dataGridViewDipendenti.Size = new System.Drawing.Size(539, 254);
+            this.dataGridViewDipendenti.TabIndex = 0;
             // 
-            // dgvDipendenti
+            // dataGridViewProdotti
             // 
-            this.dgvDipendenti.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDipendenti.ColumnHeadersHeight = 29;
-            this.dgvDipendenti.Location = new System.Drawing.Point(20, 50);
-            this.dgvDipendenti.Name = "dgvDipendenti";
-            this.dgvDipendenti.ReadOnly = true;
-            this.dgvDipendenti.RowHeadersWidth = 51;
-            this.dgvDipendenti.Size = new System.Drawing.Size(750, 150);
-            this.dgvDipendenti.TabIndex = 1;
+            this.dataGridViewProdotti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProdotti.Location = new System.Drawing.Point(828, 345);
+            this.dataGridViewProdotti.Name = "dataGridViewProdotti";
+            this.dataGridViewProdotti.RowHeadersWidth = 51;
+            this.dataGridViewProdotti.Size = new System.Drawing.Size(418, 254);
+            this.dataGridViewProdotti.TabIndex = 1;
             // 
-            // lblMagazzino
+            // dataGridViewBustePaga
             // 
-            this.lblMagazzino.AutoSize = true;
-            this.lblMagazzino.Location = new System.Drawing.Point(20, 220);
-            this.lblMagazzino.Name = "lblMagazzino";
-            this.lblMagazzino.Size = new System.Drawing.Size(75, 16);
-            this.lblMagazzino.TabIndex = 2;
-            this.lblMagazzino.Text = "Magazzino:";
-            // 
-            // dgvMagazzino
-            // 
-            this.dgvMagazzino.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMagazzino.ColumnHeadersHeight = 29;
-            this.dgvMagazzino.Location = new System.Drawing.Point(20, 250);
-            this.dgvMagazzino.Name = "dgvMagazzino";
-            this.dgvMagazzino.ReadOnly = true;
-            this.dgvMagazzino.RowHeadersWidth = 51;
-            this.dgvMagazzino.Size = new System.Drawing.Size(750, 150);
-            this.dgvMagazzino.TabIndex = 3;
-            // 
-            // lblBustePaga
-            // 
-            this.lblBustePaga.AutoSize = true;
-            this.lblBustePaga.Location = new System.Drawing.Point(20, 420);
-            this.lblBustePaga.Name = "lblBustePaga";
-            this.lblBustePaga.Size = new System.Drawing.Size(80, 16);
-            this.lblBustePaga.TabIndex = 4;
-            this.lblBustePaga.Text = "Buste Paga:";
-            // 
-            // dgvBustePaga
-            // 
-            this.dgvBustePaga.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvBustePaga.ColumnHeadersHeight = 29;
-            this.dgvBustePaga.Location = new System.Drawing.Point(20, 450);
-            this.dgvBustePaga.Name = "dgvBustePaga";
-            this.dgvBustePaga.ReadOnly = true;
-            this.dgvBustePaga.RowHeadersWidth = 51;
-            this.dgvBustePaga.Size = new System.Drawing.Size(750, 150);
-            this.dgvBustePaga.TabIndex = 5;
+            this.dataGridViewBustePaga.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewBustePaga.Location = new System.Drawing.Point(15, 364);
+            this.dataGridViewBustePaga.Name = "dataGridViewBustePaga";
+            this.dataGridViewBustePaga.RowHeadersWidth = 51;
+            this.dataGridViewBustePaga.Size = new System.Drawing.Size(773, 235);
+            this.dataGridViewBustePaga.TabIndex = 2;
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(778, 8);
+            this.btnLogout.BackColor = System.Drawing.Color.Red;
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(1252, 563);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(120, 40);
-            this.btnLogout.TabIndex = 6;
+            this.btnLogout.Size = new System.Drawing.Size(83, 36);
+            this.btnLogout.TabIndex = 3;
             this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // labelDipendenti
+            // 
+            this.labelDipendenti.AutoSize = true;
+            this.labelDipendenti.ForeColor = System.Drawing.Color.White;
+            this.labelDipendenti.Location = new System.Drawing.Point(188, 54);
+            this.labelDipendenti.Name = "labelDipendenti";
+            this.labelDipendenti.Size = new System.Drawing.Size(72, 16);
+            this.labelDipendenti.TabIndex = 4;
+            this.labelDipendenti.Text = "Dipendenti";
+            // 
+            // labelProdotti
+            // 
+            this.labelProdotti.AutoSize = true;
+            this.labelProdotti.ForeColor = System.Drawing.Color.White;
+            this.labelProdotti.Location = new System.Drawing.Point(825, 326);
+            this.labelProdotti.Name = "labelProdotti";
+            this.labelProdotti.Size = new System.Drawing.Size(53, 16);
+            this.labelProdotti.TabIndex = 5;
+            this.labelProdotti.Text = "Prodotti";
+            // 
+            // labelBustePaga
+            // 
+            this.labelBustePaga.AutoSize = true;
+            this.labelBustePaga.ForeColor = System.Drawing.Color.White;
+            this.labelBustePaga.Location = new System.Drawing.Point(12, 345);
+            this.labelBustePaga.Name = "labelBustePaga";
+            this.labelBustePaga.Size = new System.Drawing.Size(77, 16);
+            this.labelBustePaga.TabIndex = 6;
+            this.labelBustePaga.Text = "Buste Paga";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Yellow;
+            this.label1.Location = new System.Drawing.Point(889, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(265, 51);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "DIRIGENTE";
             // 
             // Form8
             // 
-            this.ClientSize = new System.Drawing.Size(910, 650);
-            this.Controls.Add(this.lblDipendenti);
-            this.Controls.Add(this.dgvDipendenti);
-            this.Controls.Add(this.lblMagazzino);
-            this.Controls.Add(this.dgvMagazzino);
-            this.Controls.Add(this.lblBustePaga);
-            this.Controls.Add(this.dgvBustePaga);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(1347, 611);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelBustePaga);
+            this.Controls.Add(this.labelProdotti);
+            this.Controls.Add(this.labelDipendenti);
             this.Controls.Add(this.btnLogout);
+            this.Controls.Add(this.dataGridViewBustePaga);
+            this.Controls.Add(this.dataGridViewProdotti);
+            this.Controls.Add(this.dataGridViewDipendenti);
             this.Name = "Form8";
             this.Text = "Pagina Dirigente";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDipendenti)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMagazzino)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBustePaga)).EndInit();
+            this.Load += new System.EventHandler(this.Form8_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDipendenti)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdotti)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBustePaga)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        private Label label1;
     }
 }

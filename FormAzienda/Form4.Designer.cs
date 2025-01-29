@@ -1,138 +1,139 @@
-﻿namespace FormAzienda
+﻿using System.Windows.Forms;
+
+namespace FormAzienda
 {
     partial class Form4
     {
         private System.ComponentModel.IContainer components = null;
+        private DataGridView dataGridViewProdotti;
+        private Button btnModifica;
+        private TextBox txtDescrizione;
+        private TextBox txtPrezzo;
+        private Button btnLogout;
+        private Label lblDescrizione;
+        private Label lblPrezzo;
 
-        private System.Windows.Forms.Label lblTitolo;
-        private System.Windows.Forms.Label lblIdProdotto;
-        private System.Windows.Forms.TextBox txtIdProdotto;
-        private System.Windows.Forms.Label lblDescrizione;
-        private System.Windows.Forms.TextBox txtDescrizione;
-        private System.Windows.Forms.Label lblPrezzo;
-        private System.Windows.Forms.TextBox txtPrezzo;
-        private System.Windows.Forms.Button btnAggiungi;
-        private System.Windows.Forms.DataGridView dgvMagazzino;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private void InitializeComponent()
         {
-            this.lblTitolo = new System.Windows.Forms.Label();
-            this.lblIdProdotto = new System.Windows.Forms.Label();
-            this.txtIdProdotto = new System.Windows.Forms.TextBox();
-            this.lblDescrizione = new System.Windows.Forms.Label();
+            this.dataGridViewProdotti = new System.Windows.Forms.DataGridView();
+            this.btnModifica = new System.Windows.Forms.Button();
             this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.lblPrezzo = new System.Windows.Forms.Label();
             this.txtPrezzo = new System.Windows.Forms.TextBox();
-            this.btnAggiungi = new System.Windows.Forms.Button();
-            this.dgvMagazzino = new System.Windows.Forms.DataGridView();
             this.btnLogout = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMagazzino)).BeginInit();
+            this.lblDescrizione = new System.Windows.Forms.Label();
+            this.lblPrezzo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdotti)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblTitolo
+            // dataGridViewProdotti
             // 
-            this.lblTitolo.AutoSize = true;
-            this.lblTitolo.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitolo.Location = new System.Drawing.Point(482, 69);
-            this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(237, 32);
-            this.lblTitolo.TabIndex = 0;
-            this.lblTitolo.Text = "Gestione Vendite";
+            this.dataGridViewProdotti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProdotti.Location = new System.Drawing.Point(189, 95);
+            this.dataGridViewProdotti.Name = "dataGridViewProdotti";
+            this.dataGridViewProdotti.RowHeadersWidth = 51;
+            this.dataGridViewProdotti.Size = new System.Drawing.Size(901, 293);
+            this.dataGridViewProdotti.TabIndex = 0;
             // 
-            // lblIdProdotto
+            // btnModifica
             // 
-            this.lblIdProdotto.Location = new System.Drawing.Point(362, 109);
-            this.lblIdProdotto.Name = "lblIdProdotto";
-            this.lblIdProdotto.Size = new System.Drawing.Size(100, 23);
-            this.lblIdProdotto.TabIndex = 1;
-            this.lblIdProdotto.Text = "ID Prodotto:";
-            // 
-            // txtIdProdotto
-            // 
-            this.txtIdProdotto.Location = new System.Drawing.Point(482, 109);
-            this.txtIdProdotto.Name = "txtIdProdotto";
-            this.txtIdProdotto.Size = new System.Drawing.Size(100, 22);
-            this.txtIdProdotto.TabIndex = 2;
-            // 
-            // lblDescrizione
-            // 
-            this.lblDescrizione.Location = new System.Drawing.Point(362, 149);
-            this.lblDescrizione.Name = "lblDescrizione";
-            this.lblDescrizione.Size = new System.Drawing.Size(100, 23);
-            this.lblDescrizione.TabIndex = 3;
-            this.lblDescrizione.Text = "Descrizione:";
+            this.btnModifica.BackColor = System.Drawing.Color.Yellow;
+            this.btnModifica.ForeColor = System.Drawing.Color.Black;
+            this.btnModifica.Location = new System.Drawing.Point(661, 471);
+            this.btnModifica.Name = "btnModifica";
+            this.btnModifica.Size = new System.Drawing.Size(154, 47);
+            this.btnModifica.TabIndex = 1;
+            this.btnModifica.Text = "Aggiungi/Modifica";
+            this.btnModifica.UseVisualStyleBackColor = false;
+            this.btnModifica.Click += new System.EventHandler(this.btnModifica_Click);
             // 
             // txtDescrizione
             // 
-            this.txtDescrizione.Location = new System.Drawing.Point(482, 149);
+            this.txtDescrizione.Location = new System.Drawing.Point(443, 471);
             this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(100, 22);
-            this.txtDescrizione.TabIndex = 4;
-            // 
-            // lblPrezzo
-            // 
-            this.lblPrezzo.Location = new System.Drawing.Point(362, 189);
-            this.lblPrezzo.Name = "lblPrezzo";
-            this.lblPrezzo.Size = new System.Drawing.Size(100, 23);
-            this.lblPrezzo.TabIndex = 5;
-            this.lblPrezzo.Text = "Prezzo:";
+            this.txtDescrizione.Size = new System.Drawing.Size(128, 22);
+            this.txtDescrizione.TabIndex = 2;
             // 
             // txtPrezzo
             // 
-            this.txtPrezzo.Location = new System.Drawing.Point(482, 189);
+            this.txtPrezzo.Location = new System.Drawing.Point(443, 521);
             this.txtPrezzo.Name = "txtPrezzo";
             this.txtPrezzo.Size = new System.Drawing.Size(100, 22);
-            this.txtPrezzo.TabIndex = 6;
-            // 
-            // btnAggiungi
-            // 
-            this.btnAggiungi.Location = new System.Drawing.Point(362, 229);
-            this.btnAggiungi.Name = "btnAggiungi";
-            this.btnAggiungi.Size = new System.Drawing.Size(220, 34);
-            this.btnAggiungi.TabIndex = 7;
-            this.btnAggiungi.Text = "Aggiungi/Modifica";
-            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
-            // 
-            // dgvMagazzino
-            // 
-            this.dgvMagazzino.ColumnHeadersHeight = 29;
-            this.dgvMagazzino.Location = new System.Drawing.Point(362, 269);
-            this.dgvMagazzino.Name = "dgvMagazzino";
-            this.dgvMagazzino.RowHeadersWidth = 51;
-            this.dgvMagazzino.Size = new System.Drawing.Size(500, 200);
-            this.dgvMagazzino.TabIndex = 8;
+            this.txtPrezzo.TabIndex = 3;
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(971, 429);
+            this.btnLogout.BackColor = System.Drawing.Color.Red;
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(1086, 538);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(115, 40);
-            this.btnLogout.TabIndex = 9;
-            this.btnLogout.Text = "LOGOUT";
-            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Size = new System.Drawing.Size(75, 36);
+            this.btnLogout.TabIndex = 4;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // lblDescrizione
+            // 
+            this.lblDescrizione.AutoSize = true;
+            this.lblDescrizione.ForeColor = System.Drawing.Color.White;
+            this.lblDescrizione.Location = new System.Drawing.Point(440, 446);
+            this.lblDescrizione.Name = "lblDescrizione";
+            this.lblDescrizione.Size = new System.Drawing.Size(78, 16);
+            this.lblDescrizione.TabIndex = 5;
+            this.lblDescrizione.Text = "Descrizione";
+            // 
+            // lblPrezzo
+            // 
+            this.lblPrezzo.AutoSize = true;
+            this.lblPrezzo.ForeColor = System.Drawing.Color.White;
+            this.lblPrezzo.Location = new System.Drawing.Point(440, 502);
+            this.lblPrezzo.Name = "lblPrezzo";
+            this.lblPrezzo.Size = new System.Drawing.Size(48, 16);
+            this.lblPrezzo.TabIndex = 6;
+            this.lblPrezzo.Text = "Prezzo";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Yellow;
+            this.label1.Location = new System.Drawing.Point(434, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(458, 51);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "GESTIONE VENDITE";
             // 
             // Form4
             // 
-            this.ClientSize = new System.Drawing.Size(1174, 570);
-            this.Controls.Add(this.btnLogout);
-            this.Controls.Add(this.lblTitolo);
-            this.Controls.Add(this.lblIdProdotto);
-            this.Controls.Add(this.txtIdProdotto);
-            this.Controls.Add(this.lblDescrizione);
-            this.Controls.Add(this.txtDescrizione);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(1173, 586);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblPrezzo);
+            this.Controls.Add(this.lblDescrizione);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.txtPrezzo);
-            this.Controls.Add(this.btnAggiungi);
-            this.Controls.Add(this.dgvMagazzino);
+            this.Controls.Add(this.txtDescrizione);
+            this.Controls.Add(this.btnModifica);
+            this.Controls.Add(this.dataGridViewProdotti);
             this.Name = "Form4";
             this.Text = "Gestione Vendite";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMagazzino)).EndInit();
+            this.Load += new System.EventHandler(this.Form4_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdotti)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        private System.Windows.Forms.Button btnLogout;
+        private Label label1;
     }
 }

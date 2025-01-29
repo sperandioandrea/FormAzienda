@@ -3,153 +3,179 @@
     partial class Form3
     {
         private System.ComponentModel.IContainer components = null;
-
-        private System.Windows.Forms.Label lblTitolo;
-        private System.Windows.Forms.Label lblNomeProdotto;
+        private System.Windows.Forms.DataGridView dataGridViewProdotti;
         private System.Windows.Forms.TextBox txtNomeProdotto;
-        private System.Windows.Forms.Label lblQuantita;
         private System.Windows.Forms.TextBox txtQuantita;
-        private System.Windows.Forms.Label lblIdProdotto;
-        private System.Windows.Forms.TextBox txtIdProdotto;
-        private System.Windows.Forms.Button btnAggiungi;
-        private System.Windows.Forms.Button btnModifica;
-        private System.Windows.Forms.DataGridView dgvMagazzino;
+        private System.Windows.Forms.Button btnAggiungiProdotto;
+        private System.Windows.Forms.Button btnModificaProdotto;
+        private System.Windows.Forms.Button btnLogout;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private void InitializeComponent()
         {
-            this.lblTitolo = new System.Windows.Forms.Label();
-            this.lblNomeProdotto = new System.Windows.Forms.Label();
+            this.dataGridViewProdotti = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtNomeProdotto = new System.Windows.Forms.TextBox();
-            this.lblQuantita = new System.Windows.Forms.Label();
             this.txtQuantita = new System.Windows.Forms.TextBox();
-            this.lblIdProdotto = new System.Windows.Forms.Label();
-            this.txtIdProdotto = new System.Windows.Forms.TextBox();
-            this.btnAggiungi = new System.Windows.Forms.Button();
-            this.btnModifica = new System.Windows.Forms.Button();
-            this.dgvMagazzino = new System.Windows.Forms.DataGridView();
+            this.btnAggiungiProdotto = new System.Windows.Forms.Button();
+            this.btnModificaProdotto = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMagazzino)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdotti)).BeginInit();
             this.SuspendLayout();
-            //
-
             // 
-            // lblTitolo
+            // dataGridViewProdotti
             // 
-            this.lblTitolo.AutoSize = true;
-            this.lblTitolo.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitolo.Location = new System.Drawing.Point(489, 42);
-            this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(277, 32);
-            this.lblTitolo.TabIndex = 0;
-            this.lblTitolo.Text = "Gestione Magazzino";
+            this.dataGridViewProdotti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProdotti.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3});
+            this.dataGridViewProdotti.Location = new System.Drawing.Point(114, 101);
+            this.dataGridViewProdotti.Name = "dataGridViewProdotti";
+            this.dataGridViewProdotti.RowHeadersWidth = 51;
+            this.dataGridViewProdotti.Size = new System.Drawing.Size(430, 410);
+            this.dataGridViewProdotti.TabIndex = 0;
             // 
-            // lblNomeProdotto
+            // dataGridViewTextBoxColumn1
             // 
-            this.lblNomeProdotto.Location = new System.Drawing.Point(369, 82);
-            this.lblNomeProdotto.Name = "lblNomeProdotto";
-            this.lblNomeProdotto.Size = new System.Drawing.Size(100, 23);
-            this.lblNomeProdotto.TabIndex = 1;
-            this.lblNomeProdotto.Text = "Nome Prodotto:";
+            this.dataGridViewTextBoxColumn1.HeaderText = "id";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "nome prodotto";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "quantità";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 125;
             // 
             // txtNomeProdotto
             // 
-            this.txtNomeProdotto.Location = new System.Drawing.Point(489, 82);
+            this.txtNomeProdotto.Location = new System.Drawing.Point(614, 217);
             this.txtNomeProdotto.Name = "txtNomeProdotto";
-            this.txtNomeProdotto.Size = new System.Drawing.Size(100, 22);
-            this.txtNomeProdotto.TabIndex = 2;
-            // 
-            // lblQuantita
-            // 
-            this.lblQuantita.Location = new System.Drawing.Point(369, 122);
-            this.lblQuantita.Name = "lblQuantita";
-            this.lblQuantita.Size = new System.Drawing.Size(100, 23);
-            this.lblQuantita.TabIndex = 3;
-            this.lblQuantita.Text = "Quantità:";
+            this.txtNomeProdotto.Size = new System.Drawing.Size(200, 22);
+            this.txtNomeProdotto.TabIndex = 1;
             // 
             // txtQuantita
             // 
-            this.txtQuantita.Location = new System.Drawing.Point(489, 122);
+            this.txtQuantita.Location = new System.Drawing.Point(614, 264);
             this.txtQuantita.Name = "txtQuantita";
-            this.txtQuantita.Size = new System.Drawing.Size(100, 22);
-            this.txtQuantita.TabIndex = 4;
+            this.txtQuantita.Size = new System.Drawing.Size(200, 22);
+            this.txtQuantita.TabIndex = 2;
             // 
-            // lblIdProdotto
+            // btnAggiungiProdotto
             // 
-            this.lblIdProdotto.Location = new System.Drawing.Point(369, 162);
-            this.lblIdProdotto.Name = "lblIdProdotto";
-            this.lblIdProdotto.Size = new System.Drawing.Size(100, 23);
-            this.lblIdProdotto.TabIndex = 5;
-            this.lblIdProdotto.Text = "ID Prodotto:";
+            this.btnAggiungiProdotto.BackColor = System.Drawing.Color.Yellow;
+            this.btnAggiungiProdotto.Location = new System.Drawing.Point(614, 311);
+            this.btnAggiungiProdotto.Name = "btnAggiungiProdotto";
+            this.btnAggiungiProdotto.Size = new System.Drawing.Size(200, 42);
+            this.btnAggiungiProdotto.TabIndex = 3;
+            this.btnAggiungiProdotto.Text = "Aggiungi";
+            this.btnAggiungiProdotto.UseVisualStyleBackColor = false;
+            this.btnAggiungiProdotto.Click += new System.EventHandler(this.btnAggiungiProdotto_Click);
             // 
-            // txtIdProdotto
+            // btnModificaProdotto
             // 
-            this.txtIdProdotto.Location = new System.Drawing.Point(489, 162);
-            this.txtIdProdotto.Name = "txtIdProdotto";
-            this.txtIdProdotto.Size = new System.Drawing.Size(100, 22);
-            this.txtIdProdotto.TabIndex = 6;
-            // 
-            // btnAggiungi
-            // 
-            this.btnAggiungi.Location = new System.Drawing.Point(369, 202);
-            this.btnAggiungi.Name = "btnAggiungi";
-            this.btnAggiungi.Size = new System.Drawing.Size(75, 23);
-            this.btnAggiungi.TabIndex = 7;
-            this.btnAggiungi.Text = "Aggiungi";
-            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
-            // 
-            // btnModifica
-            // 
-            this.btnModifica.Location = new System.Drawing.Point(489, 202);
-            this.btnModifica.Name = "btnModifica";
-            this.btnModifica.Size = new System.Drawing.Size(75, 23);
-            this.btnModifica.TabIndex = 8;
-            this.btnModifica.Text = "Modifica";
-            this.btnModifica.Click += new System.EventHandler(this.btnModifica_Click);
-            // 
-            // dgvMagazzino
-            // 
-            this.dgvMagazzino.ColumnHeadersHeight = 29;
-            this.dgvMagazzino.Location = new System.Drawing.Point(369, 257);
-            this.dgvMagazzino.Name = "dgvMagazzino";
-            this.dgvMagazzino.RowHeadersWidth = 51;
-            this.dgvMagazzino.Size = new System.Drawing.Size(500, 200);
-            this.dgvMagazzino.TabIndex = 9;
+            this.btnModificaProdotto.BackColor = System.Drawing.Color.Yellow;
+            this.btnModificaProdotto.Location = new System.Drawing.Point(614, 380);
+            this.btnModificaProdotto.Name = "btnModificaProdotto";
+            this.btnModificaProdotto.Size = new System.Drawing.Size(200, 42);
+            this.btnModificaProdotto.TabIndex = 4;
+            this.btnModificaProdotto.Text = "Modifica";
+            this.btnModificaProdotto.UseVisualStyleBackColor = false;
+            this.btnModificaProdotto.Click += new System.EventHandler(this.btnModificaProdotto_Click);
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(1008, 390);
+            this.btnLogout.BackColor = System.Drawing.Color.Red;
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(950, 481);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(115, 41);
-            this.btnLogout.TabIndex = 10;
-            this.btnLogout.Text = "LOGOUT";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click_1);
+            this.btnLogout.Size = new System.Drawing.Size(89, 48);
+            this.btnLogout.TabIndex = 5;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Yellow;
+            this.label1.Location = new System.Drawing.Point(416, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(286, 51);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "MAGAZZINO";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(611, 198);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 16);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "nome prodotto";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(611, 245);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 16);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "quantità";
             // 
             // Form3
             // 
-            this.ClientSize = new System.Drawing.Size(1209, 512);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(1051, 541);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLogout);
-            this.Controls.Add(this.lblTitolo);
-            this.Controls.Add(this.lblNomeProdotto);
-            this.Controls.Add(this.txtNomeProdotto);
-            this.Controls.Add(this.lblQuantita);
+            this.Controls.Add(this.btnModificaProdotto);
+            this.Controls.Add(this.btnAggiungiProdotto);
             this.Controls.Add(this.txtQuantita);
-            this.Controls.Add(this.lblIdProdotto);
-            this.Controls.Add(this.txtIdProdotto);
-            this.Controls.Add(this.btnAggiungi);
-            this.Controls.Add(this.btnModifica);
-            this.Controls.Add(this.dgvMagazzino);
+            this.Controls.Add(this.txtNomeProdotto);
+            this.Controls.Add(this.dataGridViewProdotti);
             this.Name = "Form3";
             this.Text = "Gestione Magazzino";
             this.Load += new System.EventHandler(this.Form3_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMagazzino)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdotti)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        private System.Windows.Forms.Button btnLogout;
-
-
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

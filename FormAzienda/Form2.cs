@@ -6,64 +6,105 @@ namespace FormAzienda
 {
     public partial class Form2 : Form
     {
+        private Db db = new Db();
+
         public Form2()
         {
             InitializeComponent();
+            cmbMansione.Items.AddRange(new string[] { "dirigente", "gestore vendite", "gestore contabilita", "magazziniere" });
+            cmbMansione.Enabled = false; // Disabilita la ComboBox all'inizio
         }
 
-        private void btnRegistrati_Click(object sender, EventArgs e)
+        private void rbtnDipendente_CheckedChanged(object sender, EventArgs e)
+        {
+            // Abilita la ComboBox solo se è selezionata l'opzione "Dipendente"
+            cmbMansione.Enabled = rbtnDipendente.Checked;
+        }
+
+        private void btnRegistrazione_Click(object sender, EventArgs e)
         {
             string nome = txtNome.Text.Trim();
             string cognome = txtCognome.Text.Trim();
             string email = txtEmail.Text.Trim();
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
-            string mansione = rbDipendente.Checked ? cmbMansione.SelectedItem?.ToString() : "cliente";
+            string mansione = rbtnDipendente.Checked ? cmbMansione.SelectedItem?.ToString() : "compratore";
 
-            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(cognome) ||
-                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(password) || (rbDipendente.Checked && string.IsNullOrWhiteSpace(mansione)))
+            // Controllo dei campi obbligatori
+            if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(cognome) || string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
+                (rbtnDipendente.Checked && string.IsNullOrEmpty(mansione)))
             {
-                MessageBox.Show("Tutti i campi sono obbligatori!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Per favore, compila tutti i campi richiesti.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            using (MySqlConnection conn = Db.GetConnection())
+            try
             {
-                try
-                {
-                    conn.Open();
-                    string query = "INSERT INTO utenti (nome, cognome, email, username, password, mansione) " +
-                                   "VALUES (@nome, @cognome, @email, @username, @password, @mansione)";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@nome", nome);
-                    cmd.Parameters.AddWithValue("@cognome", cognome);
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
-                    cmd.Parameters.AddWithValue("@mansione", mansione);
-                    cmd.ExecuteNonQuery();
+                db.OpenConnection();
 
-                    MessageBox.Show("Registrazione completata con successo!", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    new Form1().Show();
-                    this.Close();
-                }
-                catch (Exception ex)
+                // Verifica se l'username esiste già
+                string checkUserQuery = "SELECT COUNT(*) FROM utenti WHERE username = @username";
+                MySqlCommand checkCmd = new MySqlCommand(checkUserQuery, db.Connection);
+                checkCmd.Parameters.AddWithValue("@username", username);
+                int userCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (userCount > 0)
                 {
-                    MessageBox.Show($"Errore durante la registrazione: {ex.Message}", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nome utente già esistente. Scegli un altro nome utente.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                // Inserisci il nuovo utente nel database
+                string insertQuery = "INSERT INTO utenti (nome, cognome, email, username, password, mansione) VALUES (@nome, @cognome, @email, @username, @password, @mansione)";
+                MySqlCommand cmd = new MySqlCommand(insertQuery, db.Connection);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                cmd.Parameters.AddWithValue("@cognome", cognome);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@mansione", mansione);
+
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Registrazione avvenuta con successo!", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Torna al form di login dopo 3 secondi
+                Timer timer = new Timer();
+                timer.Interval = 3000; // 3 secondi
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    this.Hide();
+                    new Form1().Show();
+                };
+                timer.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore durante la registrazione: {ex.Message}", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                db.CloseConnection();
             }
         }
 
-        private void btnIndietro_Click(object sender, EventArgs e)
+        private void btnTornaLogin_Click(object sender, EventArgs e)
         {
+            // Torna al form di login
+            this.Hide();
             new Form1().Show();
-            this.Close();
         }
 
-        private void rbDipendente_CheckedChanged(object sender, EventArgs e)
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
-            cmbMansione.Enabled = rbDipendente.Checked;
+            // Vuoto (può essere rimosso se non utilizzato)
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            // Vuoto (può essere rimosso se non utilizzato)
         }
     }
 }

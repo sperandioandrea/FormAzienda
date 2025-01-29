@@ -1,50 +1,55 @@
-﻿using System;
+﻿using FormAzienda;
+using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace FormAzienda
 {
     public partial class Form7 : Form
     {
-        private MySqlConnection connection;
+        private Db db = new Db();
+        private int userId;  // Variabile per memorizzare l'ID dell'utente autenticato
 
-        public Form7()
+        public Form7(int userId)
         {
             InitializeComponent();
-            InitializeDatabaseConnection();
-            LoadDipendenti();
-            LoadBustePaga();
+            this.userId = userId;  // Assegno l'ID utente alla variabile
         }
 
-        private void InitializeDatabaseConnection()
+        private void Form7_Load(object sender, EventArgs e)
         {
-            string connectionString = "Server=localhost;Database=dbaziendale;UID=root;Password=;";
-            connection = new MySqlConnection(connectionString);
+            LoadDipendenti();
+            LoadBustePaga();
         }
 
         private void LoadDipendenti()
         {
             try
             {
-                connection.Open();
-                string query = "SELECT id, CONCAT(nome, ' ', cognome, ' - ', mansione) AS dipendente FROM utenti WHERE mansione IN ('magazziniere', 'gestore vendite', 'gestore contabilità')";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                db.OpenConnection();
+
+                // Recupera tutti i dipendenti con mansioni specifiche (magazziniere, gestore vendite, gestore contabilità)
+                string query = @"SELECT id, nome, cognome, mansione 
+                                 FROM utenti 
+                                 WHERE mansione IN ('magazziniere', 'gestore vendite', 'gestore contabilita')";
+                MySqlCommand cmd = new MySqlCommand(query, db.Connection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                cmbDipendenti.DisplayMember = "dipendente";
-                cmbDipendenti.ValueMember = "id";
+                // Imposta la ComboBox con i dipendenti
                 cmbDipendenti.DataSource = dt;
+                cmbDipendenti.DisplayMember = "nome";
+                cmbDipendenti.ValueMember = "id";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errore nel caricamento dei dipendenti: " + ex.Message);
+                MessageBox.Show($"Errore durante il caricamento dei dipendenti: {ex.Message}");
             }
             finally
             {
-                connection.Close();
+                db.CloseConnection();
             }
         }
 
@@ -52,84 +57,100 @@ namespace FormAzienda
         {
             try
             {
-                connection.Open();
-                string query = "SELECT * FROM buste_paga";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
+                db.OpenConnection();
 
-                dgvBustePaga.DataSource = dt;
+                // Carica le buste paga esistenti
+                string queryBustePaga = @"SELECT b.id, u.nome, u.cognome, u.mansione, b.data_stipendio, b.ore_mensili, b.stipendio
+                                          FROM buste_paga b
+                                          JOIN utenti u ON b.id_user = u.id";
+                MySqlCommand cmdBustePaga = new MySqlCommand(queryBustePaga, db.Connection);
+                MySqlDataAdapter adapterBustePaga = new MySqlDataAdapter(cmdBustePaga);
+                DataTable dtBustePaga = new DataTable();
+                adapterBustePaga.Fill(dtBustePaga);
+
+                // Imposta la DataGridView per visualizzare le buste paga
+                dgvBustePaga.DataSource = dtBustePaga;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errore nel caricamento delle buste paga: " + ex.Message);
+                MessageBox.Show($"Errore durante il caricamento delle buste paga: {ex.Message}");
             }
             finally
             {
-                connection.Close();
+                db.CloseConnection();
             }
         }
 
-        private void btnCalcola_Click(object sender, EventArgs e)
+        private void btnCalcolaStipendio_Click(object sender, EventArgs e)
         {
-            if (cmbDipendenti.SelectedValue == null || numOreMensili.Value == 0)
-            {
-                MessageBox.Show("Selezionare un dipendente e inserire le ore mensili.");
-                return;
-            }
-
-            int dipendenteId = Convert.ToInt32(cmbDipendenti.SelectedValue);
-            string mansione = cmbDipendenti.Text.Split('-')[1].Trim();
-            int oreMensili = (int)numOreMensili.Value;
-            decimal stipendio = CalcolaStipendio(mansione, oreMensili);
-            DateTime dataStipendio = dtpDataStipendio.Value;
-
             try
             {
-                connection.Open();
-                string query = "INSERT INTO buste_paga (dipendente_id, nome, cognome, mansione, data_stipendio, ore_mensili, stipendio) " +
-                               "SELECT id, nome, cognome, mansione, @dataStipendio, @oreMensili, @stipendio " +
-                               "FROM utenti WHERE id = @dipendenteId";
+                if (cmbDipendenti.SelectedValue == null || !int.TryParse(txtOreMensili.Text.Trim(), out int oreMensili))
+                {
+                    MessageBox.Show("Selezionare un dipendente e inserire un numero valido di ore mensili.");
+                    return;
+                }
 
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@dipendenteId", dipendenteId);
-                command.Parameters.AddWithValue("@dataStipendio", dataStipendio);
-                command.Parameters.AddWithValue("@oreMensili", oreMensili);
-                command.Parameters.AddWithValue("@stipendio", stipendio);
-                command.ExecuteNonQuery();
+                int dipendenteId = Convert.ToInt32(cmbDipendenti.SelectedValue);
+                string dataStipendio = dtpDataStipendio.Value.ToString("yyyy-MM-dd");
 
-                MessageBox.Show("Busta paga aggiunta con successo.");
+                db.OpenConnection();
+
+                // Recupera le informazioni sul dipendente selezionato
+                string queryDipendente = @"SELECT mansione 
+                                           FROM utenti 
+                                           WHERE id = @id";
+                MySqlCommand cmdDipendente = new MySqlCommand(queryDipendente, db.Connection);
+                cmdDipendente.Parameters.AddWithValue("@id", dipendenteId);
+                string mansione = cmdDipendente.ExecuteScalar()?.ToString();
+
+                if (string.IsNullOrEmpty(mansione))
+                {
+                    MessageBox.Show("Dipendente non trovato.");
+                    return;
+                }
+
+                // Calcola lo stipendio in base alla mansione
+                decimal pagaOraria = 0;
+                switch (mansione)
+                {
+                    case "magazziniere":
+                        pagaOraria = 10;
+                        break;
+                    case "gestore vendite":
+                        pagaOraria = 12;
+                        break;
+                    case "gestore contabilita":
+                        pagaOraria = 15;
+                        break;
+                    default:
+                        MessageBox.Show("Mansione non riconosciuta.");
+                        return;
+                }
+
+                decimal stipendio = pagaOraria * oreMensili;
+
+                // Inserisce la busta paga nel database
+                string queryBustaPaga = @"INSERT INTO buste_paga (id_user, data_stipendio, ore_mensili, stipendio)
+                                          VALUES (@id_user, @data_stipendio, @ore_mensili, @stipendio)";
+                MySqlCommand cmdBustaPaga = new MySqlCommand(queryBustaPaga, db.Connection);
+                cmdBustaPaga.Parameters.AddWithValue("@id_user", dipendenteId);
+                cmdBustaPaga.Parameters.AddWithValue("@data_stipendio", dataStipendio);
+                cmdBustaPaga.Parameters.AddWithValue("@ore_mensili", oreMensili);
+                cmdBustaPaga.Parameters.AddWithValue("@stipendio", stipendio);
+                cmdBustaPaga.ExecuteNonQuery();
+
+                MessageBox.Show("Busta paga inserita correttamente.");
                 LoadBustePaga();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errore nell'aggiunta della busta paga: " + ex.Message);
+                MessageBox.Show($"Errore durante l'inserimento della busta paga: {ex.Message}");
             }
             finally
             {
-                connection.Close();
+                db.CloseConnection();
             }
-        }
-
-        private decimal CalcolaStipendio(string mansione, int oreMensili)
-        {
-            decimal pagaOraria = 0;
-
-            switch (mansione)
-            {
-                case "magazziniere":
-                    pagaOraria = 10;
-                    break;
-                case "gestore vendite":
-                    pagaOraria = 12;
-                    break;
-                case "gestore contabilità":
-                    pagaOraria = 15;
-                    break;
-            }
-
-            return pagaOraria * oreMensili;
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

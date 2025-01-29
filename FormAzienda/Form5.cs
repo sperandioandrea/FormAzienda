@@ -7,93 +7,77 @@ namespace FormAzienda
 {
     public partial class Form5 : Form
     {
-        public Form5()
+        private Db db = new Db();
+        private int userId;
+
+        public Form5(int userId)
         {
             InitializeComponent();
-            CaricaProdotti();
+            this.userId = userId; // Salviamo l'ID dell'utente autenticato
+            CaricaProdotti(); // Carica i prodotti all'avvio
         }
 
+        // Metodo per caricare i prodotti nella DataGridView
         private void CaricaProdotti()
         {
-            using (MySqlConnection conn = Db.GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT id, nome_prodotto, descrizione, prezzo, quantita FROM magazzino";
-                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvProdotti.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Errore nel caricamento dei prodotti: {ex.Message}", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            string query = "SELECT id, nome_prodotto, prezzo, descrizione, quantita FROM prodotti_magazzino";
+            DataTable prodotti = db.ExecuteQuery(query); // Usa ExecuteQuery della classe Db
+            dgvProdotti.DataSource = prodotti; // Imposta la sorgente dati della DataGridView
         }
 
-        private void btnAggiungiCarrello_Click(object sender, EventArgs e)
+        // Evento click per il bottone "Compra"
+        private void btnCompra_Click(object sender, EventArgs e)
         {
-            if (dgvProdotti.SelectedRows.Count == 0)
+            if (dgvProdotti.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Seleziona un prodotto!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                int idProdotto = Convert.ToInt32(dgvProdotti.SelectedRows[0].Cells["id"].Value);
+                int quantitaDisponibile = Convert.ToInt32(dgvProdotti.SelectedRows[0].Cells["quantita"].Value);
 
-            string idProdotto = dgvProdotti.SelectedRows[0].Cells["id"].Value.ToString();
-            string nomeProdotto = dgvProdotti.SelectedRows[0].Cells["nome_prodotto"].Value.ToString();
-            string prezzo = dgvProdotti.SelectedRows[0].Cells["prezzo"].Value.ToString();
-            string quantitaSelezionata = txtQuantita.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(quantitaSelezionata) || !int.TryParse(quantitaSelezionata, out int quantita) || quantita <= 0)
-            {
-                MessageBox.Show("Inserisci una quantità valida!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            using (MySqlConnection conn = Db.GetConnection())
-            {
-                try
+                if (int.TryParse(txtQuantita.Text, out int quantitaAcquistata) && quantitaAcquistata > 0)
                 {
-                    conn.Open();
-                    string query = "INSERT INTO carrello (id_prodotto, nome_prodotto, prezzo, quantita) VALUES (@id, @nome, @prezzo, @quantita)";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", idProdotto);
-                    cmd.Parameters.AddWithValue("@nome", nomeProdotto);
-                    cmd.Parameters.AddWithValue("@prezzo", prezzo);
-                    cmd.Parameters.AddWithValue("@quantita", quantita);
-                    cmd.ExecuteNonQuery();
+                    if (quantitaAcquistata <= quantitaDisponibile)
+                    {
+                        try
+                        {
+                            // Aggiorna il database
+                            string queryUpdate = "UPDATE prodotti_magazzino SET quantita = quantita - @quantitaAcquistata WHERE id = @idProdotto";
+                            db.ExecuteNonQuery(queryUpdate,
+                                new MySqlParameter("@quantitaAcquistata", quantitaAcquistata),
+                                new MySqlParameter("@idProdotto", idProdotto));
 
-                    MessageBox.Show("Prodotto aggiunto al carrello!", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Notifica all'utente
+                            MessageBox.Show("Acquisto completato con successo!", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Ricarica i prodotti
+                            CaricaProdotti();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Errore durante l'acquisto: " + ex.Message, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("La quantità richiesta supera quella disponibile!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show($"Errore nell'aggiunta al carrello: {ex.Message}", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Inserire una quantità valida!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Selezionare un prodotto prima di acquistare!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void btnVaiCarrello_Click(object sender, EventArgs e)
-        {
-            Form6 form6 = new Form6();
-            form6.Show();
-            this.Hide();
-        }
-
-        private void Form5_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        // Evento click per il bottone "Logout"
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            // Mostra la pagina di login
-            Form1 form1 = new Form1();
-            form1.Show();
-
-            // Chiudi l'attuale form
-            this.Close();
+            this.Hide();
+            Form1 loginForm = new Form1();
+            loginForm.Show();
         }
     }
 }

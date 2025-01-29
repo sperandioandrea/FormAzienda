@@ -1,156 +1,154 @@
-﻿namespace FormAzienda
+﻿using System.Windows.Forms;
+
+namespace FormAzienda
 {
     partial class Form7
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.ComboBox cmbDipendenti;
-        private System.Windows.Forms.Label lblDipendenti;
-        private System.Windows.Forms.NumericUpDown numOreMensili;
-        private System.Windows.Forms.Label lblOreMensili;
-        private System.Windows.Forms.DateTimePicker dtpDataStipendio;
-        private System.Windows.Forms.Label lblDataStipendio;
-        private System.Windows.Forms.Button btnCalcola;
-        private System.Windows.Forms.DataGridView dgvBustePaga;
-        private System.Windows.Forms.Label lblBustePaga;
-        private System.Windows.Forms.Button btnLogout;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        private ComboBox cmbDipendenti;
+        private TextBox txtOreMensili;
+        private DateTimePicker dtpDataStipendio;
+        private Button btnCalcolaStipendio;
+        private DataGridView dgvBustePaga;
+        private Button btnLogout;
 
         private void InitializeComponent()
         {
             this.cmbDipendenti = new System.Windows.Forms.ComboBox();
-            this.lblDipendenti = new System.Windows.Forms.Label();
-            this.numOreMensili = new System.Windows.Forms.NumericUpDown();
-            this.lblOreMensili = new System.Windows.Forms.Label();
+            this.txtOreMensili = new System.Windows.Forms.TextBox();
             this.dtpDataStipendio = new System.Windows.Forms.DateTimePicker();
-            this.lblDataStipendio = new System.Windows.Forms.Label();
-            this.btnCalcola = new System.Windows.Forms.Button();
+            this.btnCalcolaStipendio = new System.Windows.Forms.Button();
             this.dgvBustePaga = new System.Windows.Forms.DataGridView();
-            this.lblBustePaga = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numOreMensili)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBustePaga)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbDipendenti
             // 
             this.cmbDipendenti.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDipendenti.Location = new System.Drawing.Point(423, 51);
+            this.cmbDipendenti.FormattingEnabled = true;
+            this.cmbDipendenti.Location = new System.Drawing.Point(985, 196);
             this.cmbDipendenti.Name = "cmbDipendenti";
             this.cmbDipendenti.Size = new System.Drawing.Size(200, 24);
-            this.cmbDipendenti.TabIndex = 1;
+            this.cmbDipendenti.TabIndex = 0;
             // 
-            // lblDipendenti
+            // txtOreMensili
             // 
-            this.lblDipendenti.AutoSize = true;
-            this.lblDipendenti.Location = new System.Drawing.Point(283, 51);
-            this.lblDipendenti.Name = "lblDipendenti";
-            this.lblDipendenti.Size = new System.Drawing.Size(143, 16);
-            this.lblDipendenti.TabIndex = 0;
-            this.lblDipendenti.Text = "Seleziona Dipendente:";
-            // 
-            // numOreMensili
-            // 
-            this.numOreMensili.Location = new System.Drawing.Point(423, 101);
-            this.numOreMensili.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.numOreMensili.Name = "numOreMensili";
-            this.numOreMensili.Size = new System.Drawing.Size(120, 22);
-            this.numOreMensili.TabIndex = 3;
-            // 
-            // lblOreMensili
-            // 
-            this.lblOreMensili.AutoSize = true;
-            this.lblOreMensili.Location = new System.Drawing.Point(283, 101);
-            this.lblOreMensili.Name = "lblOreMensili";
-            this.lblOreMensili.Size = new System.Drawing.Size(77, 16);
-            this.lblOreMensili.TabIndex = 2;
-            this.lblOreMensili.Text = "Ore Mensili:";
+            this.txtOreMensili.Location = new System.Drawing.Point(985, 246);
+            this.txtOreMensili.Name = "txtOreMensili";
+            this.txtOreMensili.Size = new System.Drawing.Size(200, 22);
+            this.txtOreMensili.TabIndex = 1;
             // 
             // dtpDataStipendio
             // 
-            this.dtpDataStipendio.Location = new System.Drawing.Point(423, 151);
+            this.dtpDataStipendio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataStipendio.Location = new System.Drawing.Point(985, 291);
             this.dtpDataStipendio.Name = "dtpDataStipendio";
-            this.dtpDataStipendio.Size = new System.Drawing.Size(250, 22);
-            this.dtpDataStipendio.TabIndex = 5;
+            this.dtpDataStipendio.Size = new System.Drawing.Size(200, 22);
+            this.dtpDataStipendio.TabIndex = 2;
             // 
-            // lblDataStipendio
+            // btnCalcolaStipendio
             // 
-            this.lblDataStipendio.AutoSize = true;
-            this.lblDataStipendio.Location = new System.Drawing.Point(283, 151);
-            this.lblDataStipendio.Name = "lblDataStipendio";
-            this.lblDataStipendio.Size = new System.Drawing.Size(132, 16);
-            this.lblDataStipendio.TabIndex = 4;
-            this.lblDataStipendio.Text = "Data dello Stipendio:";
-            // 
-            // btnCalcola
-            // 
-            this.btnCalcola.Location = new System.Drawing.Point(283, 201);
-            this.btnCalcola.Name = "btnCalcola";
-            this.btnCalcola.Size = new System.Drawing.Size(120, 40);
-            this.btnCalcola.TabIndex = 6;
-            this.btnCalcola.Text = "Calcola Stipendio";
-            this.btnCalcola.Click += new System.EventHandler(this.btnCalcola_Click);
+            this.btnCalcolaStipendio.BackColor = System.Drawing.Color.Yellow;
+            this.btnCalcolaStipendio.Location = new System.Drawing.Point(985, 340);
+            this.btnCalcolaStipendio.Name = "btnCalcolaStipendio";
+            this.btnCalcolaStipendio.Size = new System.Drawing.Size(200, 39);
+            this.btnCalcolaStipendio.TabIndex = 3;
+            this.btnCalcolaStipendio.Text = "Calcola Stipendio";
+            this.btnCalcolaStipendio.UseVisualStyleBackColor = false;
+            this.btnCalcolaStipendio.Click += new System.EventHandler(this.btnCalcolaStipendio_Click);
             // 
             // dgvBustePaga
             // 
-            this.dgvBustePaga.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvBustePaga.ColumnHeadersHeight = 29;
-            this.dgvBustePaga.Location = new System.Drawing.Point(283, 291);
+            this.dgvBustePaga.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBustePaga.Location = new System.Drawing.Point(12, 126);
             this.dgvBustePaga.Name = "dgvBustePaga";
-            this.dgvBustePaga.ReadOnly = true;
             this.dgvBustePaga.RowHeadersWidth = 51;
-            this.dgvBustePaga.Size = new System.Drawing.Size(600, 200);
-            this.dgvBustePaga.TabIndex = 8;
-            // 
-            // lblBustePaga
-            // 
-            this.lblBustePaga.AutoSize = true;
-            this.lblBustePaga.Location = new System.Drawing.Point(283, 261);
-            this.lblBustePaga.Name = "lblBustePaga";
-            this.lblBustePaga.Size = new System.Drawing.Size(80, 16);
-            this.lblBustePaga.TabIndex = 7;
-            this.lblBustePaga.Text = "Buste Paga:";
+            this.dgvBustePaga.Size = new System.Drawing.Size(949, 286);
+            this.dgvBustePaga.TabIndex = 4;
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(763, 51);
+            this.btnLogout.BackColor = System.Drawing.Color.Red;
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(1103, 423);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(120, 40);
-            this.btnLogout.TabIndex = 9;
+            this.btnLogout.Size = new System.Drawing.Size(103, 36);
+            this.btnLogout.TabIndex = 5;
             this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(982, 177);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(159, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Selezionare il dipendente";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(982, 227);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 16);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Ore di lavoro";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(982, 272);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 16);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Data busta paga";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Yellow;
+            this.label4.Location = new System.Drawing.Point(143, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(836, 51);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "GESTORE CONTABILITA\' DIPENDENTI";
             // 
             // Form7
             // 
-            this.ClientSize = new System.Drawing.Size(1172, 549);
-            this.Controls.Add(this.lblDipendenti);
-            this.Controls.Add(this.cmbDipendenti);
-            this.Controls.Add(this.lblOreMensili);
-            this.Controls.Add(this.numOreMensili);
-            this.Controls.Add(this.lblDataStipendio);
-            this.Controls.Add(this.dtpDataStipendio);
-            this.Controls.Add(this.btnCalcola);
-            this.Controls.Add(this.lblBustePaga);
-            this.Controls.Add(this.dgvBustePaga);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(1233, 471);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLogout);
+            this.Controls.Add(this.dgvBustePaga);
+            this.Controls.Add(this.btnCalcolaStipendio);
+            this.Controls.Add(this.dtpDataStipendio);
+            this.Controls.Add(this.txtOreMensili);
+            this.Controls.Add(this.cmbDipendenti);
             this.Name = "Form7";
-            this.Text = "Gestione Contabilità";
-            ((System.ComponentModel.ISupportInitialize)(this.numOreMensili)).EndInit();
+            this.Load += new System.EventHandler(this.Form7_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBustePaga)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
     }
 }
